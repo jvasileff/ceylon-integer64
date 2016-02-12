@@ -1,6 +1,17 @@
 import ceylon.whole {
     Whole
 }
+import com.vasileff.ceylon.integer64.internal {
+    realInts,
+    Integer64Impl64,
+    Integer64Impl16
+}
+
+shared
+Integer64 integer64(Integer number)
+    =>  if (realInts)
+        then Integer64Impl64.ofInteger(number)
+        else Integer64Impl16.ofInteger(number);
 
 shared sealed
 interface Integer64
