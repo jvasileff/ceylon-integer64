@@ -512,7 +512,7 @@ class Integer64Impl16 satisfies Integer64 {
 
     shared actual
     Integer preciseInteger {
-        value result = impreciseInteger;
+        value result = nearestInteger;
         if (! runtime.minIntegerValue <= result <= runtime.maxIntegerValue) {
             throw OverflowException(
                 "Cannot represent value without loss of precision.");
@@ -521,7 +521,7 @@ class Integer64Impl16 satisfies Integer64 {
     }
 
     shared actual
-    Integer impreciseInteger {
+    Integer nearestInteger {
         // special case min int, which can't be negated
         if (w3 == #8000 && w2 == 0 && w1 == 0 && w0 == 0) {
             return -9223372036854775808;
@@ -668,6 +668,8 @@ class Integer64Impl16 satisfies Integer64 {
     }
 
     shared actual
-    Float float
-        =>  preciseInteger.float;
+    Float float => preciseInteger.float;
+
+    shared actual
+    Float nearestFloat => nearestInteger.nearestFloat;
 }

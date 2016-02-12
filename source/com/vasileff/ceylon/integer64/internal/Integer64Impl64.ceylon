@@ -150,7 +150,7 @@ class Integer64Impl64 satisfies Integer64 {
     Integer preciseInteger => integer;
 
     shared actual
-    Integer impreciseInteger => integer;
+    Integer nearestInteger => integer;
 
     shared actual
     Integer hash => integer.hash;
@@ -181,4 +181,7 @@ class Integer64Impl64 satisfies Integer64 {
 
     shared actual
     Float float => integer.float;
+
+    shared actual
+    Float nearestFloat => integer.nearestFloat;
 }

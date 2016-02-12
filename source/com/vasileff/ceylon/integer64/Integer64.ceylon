@@ -40,7 +40,7 @@ interface Integer64
 
     "The number, as an [[Integer]], possibly with loss of precision."
     shared formal
-    Integer impreciseInteger;
+    Integer nearestInteger;
 
     "True if this number is even.
 
@@ -69,6 +69,9 @@ interface Integer64
         "if the number cannot be represented as a `Float`
          without loss of precision")
     shared formal Float float;
+
+    "The nearest [[Float]] to this number."
+    shared formal Float nearestFloat;
 
     "A [[Byte]] whose [[signed|Byte.signed]] and
      [[unsigned|Byte.unsigned]] interpretations are
