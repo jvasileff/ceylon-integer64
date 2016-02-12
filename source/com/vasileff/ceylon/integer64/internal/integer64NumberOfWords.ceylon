@@ -1,8 +1,9 @@
-import com.vasileff.ceylon.integer64.internal {
-    Integer64Impl16, Integer64Impl64,
-    realInts
+
+import com.vasileff.ceylon.integer64 {
+    Integer64
 }
 
+shared
 Integer64 integer64NumberOfWords(
             Integer w3, Integer w2,
             Integer w1, Integer w0)
