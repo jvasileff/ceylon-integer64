@@ -1,19 +1,19 @@
 import com.vasileff.ceylon.integer64.internal {
-    LongImpl64
+    Integer64Impl64
 }
 
 Integer minRadix = 2;
 Integer maxRadix = 36;
 
-"The [[Long]] value of the given
- [[string representation|string]] of an long value in the
- base given by [[radix]], or `null` if the string does not
- represent an long in that base, or if the mathematical
+"The [[Integer64]] value of the given
+ [[string representation|string]] of an integer value in the
+ base given by [[radix]], or `null` if the string does
+ not represent an integer in that base, or if the mathematical
  integer it represents is too large in magnitude to be
- represented by an instance of the class `Long`.
+ represented by an instance of the class `Integer64`.
 
  The syntax accepted by this function is the same as the
- syntax for an `Long` literal in the Ceylon language
+ syntax for an `Integer64` literal in the Ceylon language
  except that it may optionally begin with a sign character
  (`+` or `-`) and may not contain grouping underscore
  characters.
@@ -28,22 +28,22 @@ Integer maxRadix = 36;
 throws (`class AssertionError`,
         "if [[radix]] is not between [[minRadix]] and
          [[maxRadix]]")
-see (`function formatLong`)
+see (`function formatInteger64`)
 shared
-Long? parseLong(
+Integer64? parseInteger64(
             "The string representation to parse."
             String string,
             "The base, between [[minRadix]] and [[maxRadix]]
              inclusive."
             Integer radix = 10) {
 
-    if (is LongImpl64 zero) {
+    if (is Integer64Impl64 zero) {
         // TODO https://github.com/ceylon/ceylon-compiler/issues/2273
         //return if (exists integer = parseInteger(string, radix))
-        //then LongImpl64.ofInteger(integer)
+        //then Integer64Impl64.ofInteger(integer)
         //else null;
         if (exists integer = parseInteger(string, radix)) {
-            return LongImpl64.ofInteger(integer);
+            return Integer64Impl64.ofInteger(integer);
         }
         else {
             return null;
@@ -51,10 +51,10 @@ Long? parseLong(
     }
 
     assert (minRadix <= radix <= maxRadix);
-    value lRadix = longNumber(radix);
+    value lRadix = integer64Number(radix);
 
     variable Integer index = 0;
-    Long max = minLongValue / lRadix;
+    Integer64 max = minInteger64Value / lRadix;
 
     // Parse the sign
     Boolean negative;
@@ -75,12 +75,12 @@ Long? parseLong(
         return null;
     }
 
-    Long limit = if (negative)
-                 then minLongValue
-                 else -maxLongValue;
+    Integer64 limit = if (negative)
+                 then minInteger64Value
+                 else -maxInteger64Value;
 
     Integer length = string.size;
-    variable Long result = zero;
+    variable Integer64 result = zero;
     variable Integer digitIndex = 0;
     while (index < length) {
         Character ch;
@@ -96,7 +96,7 @@ Long? parseLong(
                 ch in "kMGTP") {
             // The SI-style magnitude
             if (exists exp = parseIntegerExponent(ch)) {
-                Long magnitude = ten.powerOfInteger(exp);
+                Integer64 magnitude = ten.powerOfInteger(exp);
                 if ((limit / magnitude) < result) {
                     result *= magnitude;
                     break;

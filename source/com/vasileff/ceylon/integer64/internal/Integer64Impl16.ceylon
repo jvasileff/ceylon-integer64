@@ -3,20 +3,16 @@ import ceylon.whole {
     wholeNumber,
     wholeZero=zero
 }
+
 import com.vasileff.ceylon.integer64 {
-    Long,
-    formatLong,
+    Integer64,
+    formatInteger64,
     lzero=zero,
-    lone=one,
-    longNumber
+    lone=one
 }
 
-// These are used for Long.offset, so integerAddressableSize is irrelevant
-Long integerMax = longNumber(runtime.maxIntegerValue);
-Long integerMin = longNumber(runtime.minIntegerValue);
-
 shared
-class LongImpl16 satisfies Long {
+class Integer64Impl16 satisfies Integer64 {
     "bits 48-63"
     shared Integer w3;
 
@@ -118,9 +114,9 @@ class LongImpl16 satisfies Long {
     }
 
     shared actual
-    LongImpl16 plus(Long other) {
+    Integer64Impl16 plus(Integer64 other) {
         value a = this;
-        assert(is LongImpl16 b = other);
+        assert(is Integer64Impl16 b = other);
 
         Integer c0;
         Integer c1;
@@ -141,13 +137,13 @@ class LongImpl16 satisfies Long {
     }
 
     shared actual
-    Long plusInteger(Integer integer)
+    Integer64 plusInteger(Integer integer)
         =>  this + ofInteger(integer);
 
     shared actual
-    LongImpl16 minus(Long other) {
+    Integer64Impl16 minus(Integer64 other) {
         value a = this;
-        assert(is LongImpl16 b = other);
+        assert(is Integer64Impl16 b = other);
 
         Integer c0;
         Integer c1;
@@ -168,7 +164,7 @@ class LongImpl16 satisfies Long {
     }
 
     shared actual
-    Long times(Long other) {
+    Integer64 times(Integer64 other) {
         if (this.zero || other.zero) {
             return lzero;
         } else if (this.unit) {
@@ -179,7 +175,7 @@ class LongImpl16 satisfies Long {
         // could check 53 bit range, and do float math
 
         value a = this;
-        assert(is LongImpl16 b = other);
+        assert(is Integer64Impl16 b = other);
 
         variable Integer prod;
         variable Integer c0 = 0;
@@ -223,12 +219,12 @@ class LongImpl16 satisfies Long {
     }
 
     shared actual
-    Long timesInteger(Integer integer)
+    Integer64 timesInteger(Integer integer)
         =>  this * ofInteger(integer);
 
     shared actual
-    Long divided(Long other) {
-        assert(is LongImpl16 other);
+    Integer64 divided(Integer64 other) {
+        assert(is Integer64Impl16 other);
         if (other.zero) {
             throw Exception("Divide by zero");
         }
@@ -245,8 +241,8 @@ class LongImpl16 satisfies Long {
     }
 
     shared actual
-    Long remainder(Long other) {
-        assert(is LongImpl16 other);
+    Integer64 remainder(Integer64 other) {
+        assert(is Integer64Impl16 other);
         if (other.zero) {
             throw Exception("Divide by zero");
         }
@@ -263,7 +259,7 @@ class LongImpl16 satisfies Long {
     }
 
     shared actual
-    Long power(Long exponent) {
+    Integer64 power(Integer64 exponent) {
         if (this.unit) {
             return this;
         }
@@ -288,13 +284,13 @@ class LongImpl16 satisfies Long {
     }
 
     shared actual
-    Long powerOfInteger(Integer exponent)
+    Integer64 powerOfInteger(Integer exponent)
         =>  power(ofInteger(exponent));
 
     shared actual
-    Long and(Long other) {
+    Integer64 and(Integer64 other) {
         value a = this;
-        assert(is LongImpl16 b = other);
+        assert(is Integer64Impl16 b = other);
         return ofWords(
             a.w3.and(b.w3),
             a.w2.and(b.w2),
@@ -303,9 +299,9 @@ class LongImpl16 satisfies Long {
     }
 
     shared actual
-    Long or(Long other) {
+    Integer64 or(Integer64 other) {
         value a = this;
-        assert(is LongImpl16 b = other);
+        assert(is Integer64Impl16 b = other);
         return ofWords(
             a.w3.or(b.w3),
             a.w2.or(b.w2),
@@ -314,9 +310,9 @@ class LongImpl16 satisfies Long {
     }
 
     shared actual
-    Long xor(Long other) {
+    Integer64 xor(Integer64 other) {
         value a = this;
-        assert(is LongImpl16 b = other);
+        assert(is Integer64Impl16 b = other);
         return ofWords(
             a.w3.xor(b.w3),
             a.w2.xor(b.w2),
@@ -325,7 +321,7 @@ class LongImpl16 satisfies Long {
     }
 
     shared actual
-    Long flip(Integer index)
+    Integer64 flip(Integer index)
         =>  if (0 <= index <= 63) then
                 let(word = index / 16)
                 let(bit = index % 16)
@@ -349,7 +345,7 @@ class LongImpl16 satisfies Long {
             else false;
 
     shared actual
-    Long set(Integer index, Boolean val)
+    Integer64 set(Integer index, Boolean val)
         =>  if (0 <= index <= 63) then
                 let(word = index / 16)
                 let(bit = index % 16)
@@ -361,7 +357,7 @@ class LongImpl16 satisfies Long {
             else this;
 
     shared actual
-    Long leftLogicalShift(variable Integer shift) {
+    Integer64 leftLogicalShift(variable Integer shift) {
         shift = shift.and($111111);
 
         if (shift == 0) {
@@ -404,7 +400,7 @@ class LongImpl16 satisfies Long {
     }
 
     shared actual
-    LongImpl16 rightLogicalShift(variable Integer shift) {
+    Integer64Impl16 rightLogicalShift(variable Integer shift) {
         shift = shift.and($111111);
 
         if (shift == 0) {
@@ -447,7 +443,7 @@ class LongImpl16 satisfies Long {
     }
 
     shared actual
-    Long rightArithmeticShift(variable Integer shift) {
+    Integer64 rightArithmeticShift(variable Integer shift) {
         if (!negative) {
             return rightLogicalShift(shift);
         } else {
@@ -478,11 +474,11 @@ class LongImpl16 satisfies Long {
     }
 
     shared actual
-    Long neighbour(Integer offset)
+    Integer64 neighbour(Integer offset)
         =>  this.plusInteger(offset);
 
     shared actual
-    Integer offset(Long other) {
+    Integer offset(Integer64 other) {
         value diff = this - other;
         if (integerMin <= diff <= integerMax) {
             return diff.integer;
@@ -493,7 +489,7 @@ class LongImpl16 satisfies Long {
     }
 
     shared actual
-    LongImpl16 not
+    Integer64Impl16 not
         =>  ofWords(
                 w3.not.and(#ffff),
                 w2.not.and(#ffff),
@@ -501,7 +497,7 @@ class LongImpl16 satisfies Long {
                 w0.not.and(#ffff));
 
     shared actual
-    LongImpl16 negated
+    Integer64Impl16 negated
         =>  not.plus(lone);
 
     // same as with Whole - narrow to integer addressable number of bits
@@ -570,17 +566,17 @@ class LongImpl16 satisfies Long {
     }
 
     shared actual
-    LongImpl16 magnitude
+    Integer64Impl16 magnitude
         =>  if (negative)
             then negated
             else this;
 
     shared actual
-    Long wholePart
+    Integer64 wholePart
         =>  this;
 
     shared actual
-    Long fractionalPart
+    Integer64 fractionalPart
         =>  lzero;
 
     shared actual
@@ -622,11 +618,11 @@ class LongImpl16 satisfies Long {
 
     shared actual
     String string
-        =>  formatLong(this);
+        =>  formatInteger64(this);
 
     shared actual
     Boolean equals(Object that)
-        =>  if (is LongImpl16 that) then
+        =>  if (is Integer64Impl16 that) then
                 w3==that.w3 &&
                 w2==that.w2 &&
                 w1==that.w1 &&
@@ -635,7 +631,7 @@ class LongImpl16 satisfies Long {
                 false;
 
     shared actual
-    Comparison compare(Long other)
+    Comparison compare(Integer64 other)
         =>  let (thisSign = sign,
                  otherSign = other.sign)
             if (thisSign != otherSign) then
@@ -645,9 +641,9 @@ class LongImpl16 satisfies Long {
             else
                 larger;
 
-    Long powerBySquaring(variable Long exponent) {
-        variable Long result = lone;
-        variable Long x = this;
+    Integer64 powerBySquaring(variable Integer64 exponent) {
+        variable Integer64 result = lone;
+        variable Integer64 x = this;
         while (!exponent.zero) {
             if (!exponent.even) {
                 result *= x;

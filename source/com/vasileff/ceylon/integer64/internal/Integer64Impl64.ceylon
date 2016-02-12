@@ -3,12 +3,12 @@ import ceylon.whole {
     wholeNumber
 }
 import com.vasileff.ceylon.integer64 {
-    Long,
+    Integer64,
     lzero=zero
 }
 
 shared
-class LongImpl64 satisfies Long {
+class Integer64Impl64 satisfies Integer64 {
 
     shared actual
     Integer integer;
@@ -26,25 +26,25 @@ class LongImpl64 satisfies Long {
     }
 
     shared actual
-    Long and(Long other) {
-        assert(is LongImpl64 other);
+    Integer64 and(Integer64 other) {
+        assert(is Integer64Impl64 other);
         return ofInteger(integer.and(other.integer));
     }
 
     shared actual
-    Comparison compare(Long other) {
-        assert(is LongImpl64 other);
+    Comparison compare(Integer64 other) {
+        assert(is Integer64Impl64 other);
         return integer.compare(other.integer);
     }
 
     shared actual
-    Long divided(Long other) {
-        assert(is LongImpl64 other);
+    Integer64 divided(Integer64 other) {
+        assert(is Integer64Impl64 other);
         return ofInteger(integer.divided(other.integer));
     }
 
     shared actual
-    Long flip(Integer index)
+    Integer64 flip(Integer index)
         =>  ofInteger(integer.flip(index));
 
     shared actual
@@ -52,82 +52,82 @@ class LongImpl64 satisfies Long {
         =>  integer.get(index);
 
     shared actual
-    Long leftLogicalShift(Integer shift)
+    Integer64 leftLogicalShift(Integer shift)
         =>  ofInteger(integer.leftLogicalShift(shift));
 
     shared actual
-    Long neighbour(Integer offset)
+    Integer64 neighbour(Integer offset)
         =>  ofInteger(integer.neighbour(offset));
 
     shared actual
-    Integer offset(Long other) {
-        assert(is LongImpl64 other);
+    Integer offset(Integer64 other) {
+        assert(is Integer64Impl64 other);
         return integer.offset(other.integer);
     }
 
     shared actual
-    Long or(Long other) {
-        assert(is LongImpl64 other);
+    Integer64 or(Integer64 other) {
+        assert(is Integer64Impl64 other);
         return ofInteger(integer.or(other.integer));
     }
 
     shared actual
-    Long plus(Long other) {
-        assert(is LongImpl64 other);
+    Integer64 plus(Integer64 other) {
+        assert(is Integer64Impl64 other);
         return ofInteger(integer.plus(other.integer));
     }
 
     shared actual
-    Long plusInteger(Integer integer)
+    Integer64 plusInteger(Integer integer)
         =>  ofInteger(this.integer.plusInteger(integer));
 
     shared actual
-    Long power(Long exponent) {
-        assert(is LongImpl64 exponent);
+    Integer64 power(Integer64 exponent) {
+        assert(is Integer64Impl64 exponent);
         return ofInteger(integer.power(exponent.integer));
     }
 
     shared actual
-    Long powerOfInteger(Integer exponent)
+    Integer64 powerOfInteger(Integer exponent)
         =>  ofInteger(integer.powerOfInteger(exponent));
 
     shared actual
-    Long remainder(Long other) {
-        assert(is LongImpl64 other);
+    Integer64 remainder(Integer64 other) {
+        assert(is Integer64Impl64 other);
         return ofInteger(integer.remainder(other.integer));
     }
 
     shared actual
-    Long rightArithmeticShift(Integer shift)
+    Integer64 rightArithmeticShift(Integer shift)
         =>  ofInteger(integer.rightArithmeticShift(shift));
 
     shared actual
-    Long rightLogicalShift(Integer shift)
+    Integer64 rightLogicalShift(Integer shift)
         =>  ofInteger(integer.rightLogicalShift(shift));
 
     shared actual
-    Long set(Integer index, Boolean bit)
+    Integer64 set(Integer index, Boolean bit)
         =>  ofInteger(integer.set(index, bit));
 
     shared actual
-    Long times(Long other) {
-        assert(is LongImpl64 other);
+    Integer64 times(Integer64 other) {
+        assert(is Integer64Impl64 other);
         return ofInteger(integer.times(other.integer));
     }
 
     shared actual
-    Long timesInteger(Integer integer)
+    Integer64 timesInteger(Integer integer)
         =>  ofInteger(this.integer.timesInteger(integer));
 
     shared actual
-    Long xor(Long other) {
-        assert(is LongImpl64 other);
+    Integer64 xor(Integer64 other) {
+        assert(is Integer64Impl64 other);
         return ofInteger(integer.xor(other.integer));
     }
 
     shared actual
     Boolean equals(Object that)
-        =>  if (is LongImpl64 that)
+        =>  if (is Integer64Impl64 that)
             then integer == that.integer
             else false;
 
@@ -135,10 +135,10 @@ class LongImpl64 satisfies Long {
     Boolean unit => integer.unit;
 
     shared actual
-    Long fractionalPart => lzero;
+    Integer64 fractionalPart => lzero;
 
     shared actual
-    Long wholePart => this;
+    Integer64 wholePart => this;
 
     shared actual
     Boolean zero => integer.zero;
@@ -159,10 +159,10 @@ class LongImpl64 satisfies Long {
     Whole whole => wholeNumber(integer);
 
     shared actual
-    Long negated => ofInteger(integer.negated);
+    Integer64 negated => ofInteger(integer.negated);
 
     shared actual
-    Long not => ofInteger(integer.not);
+    Integer64 not => ofInteger(integer.not);
 
     shared actual
     Boolean negative => integer.negative;

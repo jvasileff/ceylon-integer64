@@ -1,14 +1,14 @@
-shared Long zero = longNumber(0);
-shared Long one = longNumber(1);
-shared Long two = longNumber(2);
-shared Long ten = longNumber(10);
+shared Integer64 zero = integer64Number(0);
+shared Integer64 one = integer64Number(1);
+shared Integer64 two = integer64Number(2);
+shared Integer64 ten = integer64Number(10);
 
-"The maximum [[Long]] value, equal to (2<sup>63</sup> - 1)."
+"The maximum [[Integer64]] value, equal to (2<sup>63</sup> - 1)."
 shared
-Long maxLongValue
-    =   longNumberOfWords(#7fff, #ffff, #ffff, #ffff);
+Integer64 maxInteger64Value
+    =   integer64NumberOfWords(#7fff, #ffff, #ffff, #ffff);
 
-"The minimum [[Long]] value, equal to -(2<sup>63</sup>)."
+"The minimum [[Integer64]] value, equal to -(2<sup>63</sup>)."
 shared
-Long minLongValue
-    =   longNumberOfWords(#8000, 0, 0, 0);
+Integer64 minInteger64Value
+    =   integer64NumberOfWords(#8000, 0, 0, 0);

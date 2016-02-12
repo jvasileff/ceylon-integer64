@@ -3,23 +3,23 @@ import ceylon.whole {
 }
 
 shared sealed
-interface Long
-        satisfies Integral<Long> &
-                  Binary<Long> &
-                  Exponentiable<Long, Long> {
+interface Integer64
+        satisfies Integral<Integer64> &
+                  Binary<Integer64> &
+                  Exponentiable<Integer64, Integer64> {
 
     "An [[Integer]] composed of the [[runtime.integerAddressableSize]]
      number of least significant bits of the two's complement
-     representation of this `Long`.
+     representation of this `Integer64`.
 
      For JavaScript, the sign of the returned [[Integer]] may be
-     different from the sign of the `Long`."
+     different from the sign of the `Integer64`."
     shared formal
     Integer integer;
 
-    "An [[Integer]] with the same value as this `Long` if this `Long`
-     is greater than or equal to [[runtime.minIntegerValue]] and less
-     than or equal to [[runtime.maxIntegerValue]]. Otherwise, an
+    "An [[Integer]] with the same value as this `Integer64` if this
+     `Integer64` is greater than or equal to [[runtime.minIntegerValue]]
+     and less than or equal to [[runtime.maxIntegerValue]]. Otherwise, an
      [[OverflowException]] is thrown."
     throws(`class OverflowException`,
            "if this number cannot be represented by

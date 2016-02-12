@@ -1,8 +1,8 @@
 import com.vasileff.ceylon.integer64.internal {
-    LongImpl64
+    Integer64Impl64
 }
 
-"The string representation of the given [[Long]] in the
+"The string representation of the given [[Integer64]] in the
  base given by [[radix]]. If the given value is negative,
  the string representation will begin with `-`. Digits
  consist of decimal digits `0` to `9`, together with and
@@ -10,30 +10,30 @@ import com.vasileff.ceylon.integer64.internal {
 throws (`class AssertionError`,
         "if [[radix]] is not between [[minRadix]] and
          [[maxRadix]]")
-see (`function parseLong`)
+see (`function parseInteger64`)
 shared
-String formatLong(
-        "The Long value to format."
-        Long long,
+String formatInteger64(
+        "The Integer64 value to format."
+        Integer64 integer,
         "The base, between [[minRadix]] and [[maxRadix]]
          inclusive."
         Integer radix = 10) {
 
-    if (is LongImpl64 long) {
-        return formatInteger(long.integer, radix);
+    if (is Integer64Impl64 integer) {
+        return formatInteger(integer.integer, radix);
     }
 
     assert (minRadix <= radix <= maxRadix);
-    if (long.zero) {
+    if (integer.zero) {
         return "0";
     }
-    value lRadix = longNumber(radix);
+    value lRadix = integer64Number(radix);
     variable {Character*} digits = {};
-    variable Long i = if (long < zero)
-                      then long
-                      else -long;
+    variable Integer64 i = if (integer < zero)
+                      then integer
+                      else -integer;
     while (!i.zero) {
-        Long dl = -(i % lRadix);
+        Integer64 dl = -(i % lRadix);
         Integer d = dl.integer;
         Character c;
         if (0 <= d < 10) {
@@ -48,7 +48,7 @@ String formatLong(
         digits = digits.follow(c);
         i = (i + dl) / lRadix;
     }
-    if (long.negative) {
+    if (integer.negative) {
         digits = digits.follow('-');
     }
     return String(digits);
