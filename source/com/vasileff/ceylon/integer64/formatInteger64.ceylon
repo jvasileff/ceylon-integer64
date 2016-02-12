@@ -27,7 +27,7 @@ String formatInteger64(
     if (integer.zero) {
         return "0";
     }
-    value lRadix = integer64(radix);
+    assert (exists lRadix = integer64(radix));
     variable {Character*} digits = {};
     variable Integer64 i = if (integer < zero)
                       then integer

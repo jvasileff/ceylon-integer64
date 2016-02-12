@@ -51,13 +51,10 @@ class Integer64Impl16 satisfies Integer64 {
 
     shared
     new ofInteger(variable Integer integer) {
-        if (! runtime.minIntegerValue <= integer <= runtime.maxIntegerValue) {
-            // FIXME throwing exceptions in constructors not supported ATM
-            // https://github.com/ceylon/ceylon-spec/issues/1288
-            //throw OverflowException();
-            assert(false);
-        }
-        else if (integer.zero) {
+        "integer must be in the range runtime.minIntegerValue..runtime.maxIntegerValue"
+        assert (runtime.minIntegerValue <= integer <= runtime.maxIntegerValue);
+
+        if (integer.zero) {
             this.w3 = 0;
             this.w2 = 0;
             this.w1 = 0;

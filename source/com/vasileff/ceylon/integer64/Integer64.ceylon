@@ -7,11 +7,16 @@ import com.vasileff.ceylon.integer64.internal {
     Integer64Impl16
 }
 
+"Returns an [[Integer64]] for the given [[integer]], or [[null]] if the `integer`
+ is less than [[runtime.minIntegerValue]] or greater than [[runtime.maxIntegerValue]]."
 shared
-Integer64 integer64(Integer number)
-    =>  if (realInts)
-        then Integer64Impl64.ofInteger(number)
-        else Integer64Impl16.ofInteger(number);
+Integer64? integer64(Integer integer)
+    =>  if (realInts) then
+            Integer64Impl64.ofInteger(integer)
+        else if (runtime.minIntegerValue <= integer <= runtime.maxIntegerValue) then
+            Integer64Impl16.ofInteger(integer)
+        else
+            null;
 
 shared sealed
 interface Integer64

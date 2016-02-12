@@ -51,7 +51,7 @@ Integer64? parseInteger64(
     }
 
     assert (minRadix <= radix <= maxRadix);
-    value lRadix = integer64(radix);
+    assert (exists lRadix = integer64(radix));
 
     variable Integer index = 0;
     Integer64 max = minInteger64Value / lRadix;
