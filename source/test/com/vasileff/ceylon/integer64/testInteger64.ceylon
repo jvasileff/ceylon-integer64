@@ -4,6 +4,9 @@ import ceylon.test {
     assertEquals,
     assertThatException
 }
+import ceylon.whole {
+    Whole
+}
 
 import com.vasileff.ceylon.integer64 {
     Integer64,
@@ -12,7 +15,8 @@ import com.vasileff.ceylon.integer64 {
     two,
     one,
     ten,
-    zero
+    zero,
+    integer64FromWhole
 }
 
 Integer64 num(String | Integer n) {
@@ -403,4 +407,238 @@ void integer64ToByte() {
     assertEquals(num(1).byte, 1.byte);
     assertEquals(num(255).byte, 255.byte);
     assertEquals(num(256).byte, 0.byte);
+}
+
+Integer iters = 100;
+
+shared test
+void randomPlus() {
+    runTests {
+        label = "+";
+        actual = uncurry(Integer64.plus);
+        expected = basicWW(Whole.plus);
+        tests = {[
+            generateInteger64(63),
+            generateInteger64(63)
+        ]}.cycled.take(iters);
+    };
+}
+
+shared test
+void randomMinus() {
+    runTests {
+        label = "-";
+        actual = uncurry(Integer64.minus);
+        expected = basicWW(Whole.minus);
+        tests = {[
+            generateInteger64(63),
+            generateInteger64(63)
+        ]}.cycled.take(iters);
+    };
+}
+
+shared test
+void randomTimes() {
+    runTests {
+        label = "*";
+        actual = uncurry(Integer64.times);
+        expected = basicWW(Whole.times);
+        tests = {[
+            generateInteger64(63),
+            generateInteger64(63)
+        ]}.cycled.take(iters);
+    };
+}
+
+shared test
+void randomDivided() {
+    runTests {
+        label = "÷";
+        actual = uncurry(Integer64.divided);
+        expected = basicWW(Whole.divided);
+        tests = {[
+            generateInteger64(63),
+            generateInteger64(63)
+        ]}.cycled.take(iters);
+    };
+}
+
+shared test
+void randomRemainder() {
+    runTests {
+        label = "%";
+        actual = uncurry(Integer64.remainder);
+        expected = basicWW(Whole.remainder);
+        tests = {[
+            generateInteger64(63),
+            generateInteger64(63)
+        ]}.cycled.take(iters);
+    };
+}
+
+shared test
+void randomModulo() {
+    runTests {
+        label = "mod";
+        actual = uncurry(Integer64.modulo);
+        expected = basicWW(Whole.modulo);
+        tests = {[
+            generateInteger64(63),
+            generateInteger64(63)
+        ]}.cycled.take(iters);
+    };
+}
+
+shared test
+void randomPower() {
+    runTests {
+        label = "^";
+        actual = uncurry(Integer64.modulo);
+        expected = basicWW(Whole.modulo);
+        tests = {[
+            generateInteger64(63),
+            generateInteger64 { bits = 8; randomSignBit = false; }
+        ]}.cycled.take(iters);
+    };
+}
+
+shared test
+void randomAnd() {
+    runTests {
+        label = "and";
+        actual = uncurry(Integer64.and);
+        expected = basicWW(Whole.and);
+        tests = {[
+            generateInteger64(63),
+            generateInteger64(63)
+        ]}.cycled.take(iters);
+    };
+}
+
+shared test
+void randomOr() {
+    runTests {
+        label = "or";
+        actual = uncurry(Integer64.or);
+        expected = basicWW(Whole.or);
+        tests = {[
+            generateInteger64(63),
+            generateInteger64(63)
+        ]}.cycled.take(iters);
+    };
+}
+
+shared test
+void randomXOr() {
+    runTests {
+        label = "and";
+        actual = uncurry(Integer64.xor);
+        expected = basicWW(Whole.xor);
+        tests = {[
+            generateInteger64(63),
+            generateInteger64(63)
+        ]}.cycled.take(iters);
+    };
+}
+
+shared test
+void randomRightArithmeticShift() {
+    runTests {
+        label = ">>";
+        actual = uncurry(Integer64.rightArithmeticShift);
+        expected = basicWI(Whole.rightArithmeticShift);
+        tests = {[
+            generateInteger64(63),
+            random.nextInteger(64)
+        ]}.cycled.take(iters);
+    };
+}
+
+shared test
+void randomLeftLogicalShift() {
+    runTests {
+        label = "<<";
+        actual = uncurry(Integer64.leftLogicalShift);
+        expected = basicWI(Whole.leftLogicalShift);
+        tests = {[
+            generateInteger64(63),
+            random.nextInteger(64)
+        ]}.cycled.take(iters);
+    };
+}
+
+shared test
+void randomGet() {
+    runTests {
+        label = "get";
+        actual = uncurry(Integer64.get);
+        expected = (Integer64 a, Integer b) =>a.whole.get(b);
+        tests = {[
+            generateInteger64(63),
+            random.nextInteger(64)
+        ]}.cycled.take(iters);
+    };
+}
+
+shared test
+void randomSetFalse() {
+    runTests {
+        label = "set-false";
+        actual = (Integer64 a, Integer b) => a.set(b, false);
+        expected = (Integer64 a, Integer b) => integer64FromWhole(a.whole.set(b, false));
+        tests = {[
+            generateInteger64(63),
+            random.nextInteger(64)
+        ]}.cycled.take(iters);
+    };
+}
+
+shared test
+void randomSetTrue() {
+    runTests {
+        label = "set-true";
+        actual = (Integer64 a, Integer b) => a.set(b, true);
+        expected = (Integer64 a, Integer b) => integer64FromWhole(a.whole.set(b, true));
+        tests = {[
+            generateInteger64(63),
+            random.nextInteger(64)
+        ]}.cycled.take(iters);
+    };
+}
+
+shared test
+void randomFlip() {
+    runTests {
+        label = "flip";
+        actual = uncurry(Integer64.flip);
+        expected = basicWI(Whole.flip);
+        tests = {[
+            generateInteger64(63),
+            random.nextInteger(64)
+        ]}.cycled.take(iters);
+    };
+}
+
+shared test
+void randomNot() {
+    runTests {
+        label = "not";
+        actual = (Integer64 a) => a.not;
+        expected = (Integer64 a) => integer64FromWhole(a.whole.not);
+        tests = {[
+            generateInteger64(63)
+        ]}.cycled.take(iters);
+    };
+}
+
+shared test
+void randomNegated() {
+    runTests {
+        label = "negated";
+        actual = (Integer64 a) => a.negated;
+        expected = (Integer64 a) => integer64FromWhole(a.whole.negated);
+        tests = {[
+            generateInteger64(63)
+        ]}.cycled.take(iters);
+    };
 }
