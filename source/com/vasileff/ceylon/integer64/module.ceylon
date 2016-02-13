@@ -1,3 +1,3 @@
-module com.vasileff.ceylon.integer64 "1.0.1-SNAPSHOT" {
+module com.vasileff.ceylon.integer64 "1.0.1" {
     shared import ceylon.whole "1.2.1";
 }
