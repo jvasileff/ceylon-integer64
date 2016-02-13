@@ -633,6 +633,8 @@ class Integer64Impl16 satisfies Integer64 {
                  otherSign = other.sign)
             if (thisSign != otherSign) then
                 thisSign <=> otherSign
+            else if (equals(other)) then
+                equal
             else if ((this - other).negative) then
                 smaller
             else
