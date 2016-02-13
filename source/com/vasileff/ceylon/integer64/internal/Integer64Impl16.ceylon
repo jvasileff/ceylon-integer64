@@ -450,9 +450,9 @@ class Integer64Impl16 satisfies Integer64 {
                 return this;
             }
 
-            value l = rightLogicalShift(shift);
             value words = shift / 16;
             value bits = shift % 16;
+            value l = rightLogicalShift(bits);
 
             if (bits == 0) {
                 return switch(words)
