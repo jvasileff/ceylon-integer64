@@ -24,4 +24,6 @@ shared void run() {
     randomFlip();
     randomNot();
     randomNegated();
+
+    print("Tests complete!");
 }
