@@ -20,7 +20,7 @@ String formatInteger64(
         Integer radix = 10) {
 
     if (is Integer64Impl64 integer) {
-        return formatInteger(integer.integer, radix);
+        return Integer.format(integer.integer, radix);
     }
 
     assert (minRadix <= radix <= maxRadix);

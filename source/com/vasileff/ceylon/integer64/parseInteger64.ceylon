@@ -42,7 +42,7 @@ Integer64? parseInteger64(
         //return if (exists integer = parseInteger(string, radix))
         //then Integer64Impl64.ofInteger(integer)
         //else null;
-        if (exists integer = parseInteger(string, radix)) {
+        if (is Integer integer = Integer.parse(string, radix)) {
             return Integer64Impl64.ofInteger(integer);
         }
         else {
